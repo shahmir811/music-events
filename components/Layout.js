@@ -1,12 +1,15 @@
 import React from 'react';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
 
 import Header from './Header';
 import Footer from './Footer';
-import styles from '../styles/Layout.module.css';
+import Showcase from './Showcase';
+import styles from '@/styles/Layout.module.css';
 
 const Layout = (props) => {
 	const { title, keywords, description, children } = props;
+	const router = useRouter();
 
 	let modifiedTitle = `DJ Events | ${title}`;
 
@@ -19,6 +22,9 @@ const Layout = (props) => {
 				<title>{modifiedTitle}</title>
 			</Head>
 			<Header />
+
+			{router.pathname === '/' && <Showcase />}
+
 			<div className={styles.container}>{children}</div>
 			<Footer />
 		</div>
