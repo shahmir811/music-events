@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 
+import Search from './Search';
 import styles from '@/styles/Header.module.css';
 
 const Header = () => {
@@ -11,6 +12,8 @@ const Header = () => {
 					<a>DJ Events</a>
 				</Link>
 			</div>
+
+			<Search />
 
 			<nav>
 				<ul>

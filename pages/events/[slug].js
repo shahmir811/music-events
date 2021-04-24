@@ -40,12 +40,12 @@ const EventPage = (props) => {
 				</div>
 
 				<span>
-					{date} at {time}
+					{new Date(date).toLocaleDateString('en-US')} at {time}
 				</span>
 				<h1>{name}</h1>
 				{image && (
 					<div className={styles.image}>
-						<Image src={image} width={960} height={600} />
+						<Image src={image.formats.medium.url} width={960} height={600} />
 					</div>
 				)}
 
@@ -67,7 +67,7 @@ const EventPage = (props) => {
 export default EventPage;
 
 export const getStaticPaths = async () => {
-	const res = await fetch(`${API_URL}/api/events`);
+	const res = await fetch(`${API_URL}/events`);
 	const events = await res.json();
 	const paths = events.map((event) => ({
 		params: { slug: event.slug },
@@ -82,7 +82,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
 	// const { slug } = context.query;
 
-	const res = await fetch(`${API_URL}/api/events/${slug}`);
+	const res = await fetch(`${API_URL}/events?slug=${slug}`);
 	const event = await res.json();
 
 	return {
@@ -96,7 +96,7 @@ export const getStaticProps = async ({ params: { slug } }) => {
 // export const getServerSideProps = async (context) => {
 // 	const { slug } = context.query;
 
-// 	const res = await fetch(`${API_URL}/api/events/${slug}`);
+// 	const res = await fetch(`${API_URL}/events/${slug}`);
 // 	const event = await res.json();
 
 // 	return {

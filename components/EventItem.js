@@ -11,7 +11,9 @@ const EventItem = (props) => {
 		<div className={styles.event}>
 			<div className={styles.img}>
 				<Image
-					src={image ? image : '/images/event-default.png'}
+					src={
+						image ? image.formats.thumbnail.url : '/images/event-default.png'
+					}
 					width={170}
 					height={100}
 				/>
@@ -19,7 +21,7 @@ const EventItem = (props) => {
 
 			<div className={styles.info}>
 				<span>
-					{date} at {time}
+					{new Date(date).toLocaleDateString('en-US')} at {time}
 				</span>
 				<h3>{name}</h3>
 			</div>

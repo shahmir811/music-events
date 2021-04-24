@@ -34,19 +34,19 @@ export default function HomePage(props) {
 }
 
 export const getStaticProps = async () => {
-	const res = await fetch(`${API_URL}/api/events`);
+	const res = await fetch(`${API_URL}/events?_sort=date:ASC&_limit=3`);
 	const events = await res.json();
 
 	return {
 		props: {
-			events: events.slice(0, 3),
+			events,
 			revalidate: 1, // 1 second
 		},
 	};
 };
 
 // export const getServerSideProps = async () => {
-// 	const res = await fetch(`${API_URL}/api/events`);
+// 	const res = await fetch(`${API_URL}/events`);
 // 	const events = await res.json();
 
 // 	return {
