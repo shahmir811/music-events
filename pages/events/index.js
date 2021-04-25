@@ -1,10 +1,10 @@
 import Layout from '@/components/Layout';
-import { API_URL } from '@/config/index';
-
+import Pagination from '@/components/Pagination';
+import { API_URL, PER_PAGE } from '@/config/index';
 import EventItem from '@/components/EventItem';
 
 export default function EventPage(props) {
-	const { events } = props;
+	const { events, page, total } = props;
 
 	const haveEvents = () => {
 		if (events.length === 0) {
@@ -18,29 +18,30 @@ export default function EventPage(props) {
 		<Layout title='Home'>
 			<h1>Events</h1>
 			{haveEvents()}
+			<Pagination page={page} total={total} />
 		</Layout>
 	);
 }
 
-export const getStaticProps = async () => {
-	const res = await fetch(`${API_URL}/events?_sort=date:ASC`);
+export const getServerSideProps = async ({ query: { page = 1 } }) => {
+	// Calculate Start Page
+	const start = +page === 1 ? 0 : (+page - 1) * PER_PAGE;
+
+	// Fetch total/count
+	const totalRes = await fetch(`${API_URL}/events/count`);
+	const total = await totalRes.json();
+
+	// Fetch events
+	const res = await fetch(
+		`${API_URL}/events?_sort=date:ASC&_limit=${PER_PAGE}&_start=${start}`
+	);
 	const events = await res.json();
 
 	return {
 		props: {
 			events,
-			revalidate: 1, // 1 second
+			page: +page,
+			total,
 		},
 	};
 };
-
-// export const getServerSideProps = async () => {
-// 	const res = await fetch(`${API_URL}/events?_sort=date:ASC`);
-// 	const events = await res.json();
-
-// 	return {
-// 		props: {
-// 			events,
-// 		},
-// 	};
-// };

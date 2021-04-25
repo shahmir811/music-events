@@ -1,14 +1,14 @@
-DJ Events (Frontend)
+# Music Events
 
-> Next.js website for DJ Events. This is part of my Next.js learning
+> Next.js website for Music Events. This is part of my Next.js learning
 
-![DJ Events](/public/images/screen.png 'DJ Events')
+![Music Events](/public/images/screen.png 'Music Events')
 
-# Usage
+## Usage
 
 ### Setup Backend
 
-Used Strapi for backened as it is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device.
+Used [Strapi](https://strapi.io/) for backened as it is the next-gen headless CMS, open-source, javascript, enabling content-rich experiences to be created, managed and exposed to any digital device. Also for image upload, I used the [Cloudinary](https://cloudinary.com/)
 
 ### Run the Server
 
